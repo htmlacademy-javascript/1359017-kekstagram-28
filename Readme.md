@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Ekaterina Bolshakova](https://up.htmlacademy.ru/javascript/28/user/1359017).
-* Наставник: `Неизвестно`.
+* Наставник:  [ Роман Марченко ](https://htmlacademy.ru/profile/id505487) .
 
 ---
 
