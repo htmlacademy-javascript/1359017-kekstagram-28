@@ -1,10 +1,7 @@
 //Функция для проверки длины строки.
-function checkString (string, long){
-  if (string.length > long){
-    return false;
-  }
-  return true;
-}
+
+const checkString = (string, length) => string.length <= length;
+
 checkString('проверяемая строка', 20);
 
 

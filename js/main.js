@@ -47,6 +47,7 @@ const createPhoto = () => ({
   },createComments),
 });
 const photos = Array.from({length: 25},createPhoto);
-console.log(createPhoto());
+photos();
+/*console.log(createPhoto());
 console.log(createComments());
-console.log(photos);
+console.log(photos);*/
