@@ -36,8 +36,8 @@ const createPhoto = () => ({
   likes: getRandom(MIN_LIKE_NUMBER, MAX_LIKE_NUMBER),
   comments: createComments()
 });
-Array.from({length: MAX_ARRAY_LENGHT},createPhoto);
-export {createPhoto};
+const createMockPhotos = ()=>Array.from({length: MAX_ARRAY_LENGHT}, createPhoto);
+export {createMockPhotos, createPhoto, createComments};
 /*console.log(createPhoto());
 console.log(createComments());
 */
