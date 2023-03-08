@@ -1,8 +1,8 @@
 import { createMockPhotos } from './data.js';
-
+import {MAX_ARRAY_LENGHT} from './const.js';
 const picture = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
-const similarPictures = createMockPhotos(25);
+const similarPictures = createMockPhotos(MAX_ARRAY_LENGHT);
 
 const similarPicturesFragment = document.createDocumentFragment();
 
