@@ -1,8 +1,7 @@
 import { createMockPhotos } from './data.js';
-import {MAX_ARRAY_LENGHT} from './const.js';
 const picture = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
-const similarPictures = createMockPhotos(MAX_ARRAY_LENGHT);
+const similarPictures = createMockPhotos();
 
 const similarPicturesFragment = document.createDocumentFragment();
 
@@ -17,4 +16,5 @@ similarPictures.forEach (({url, comments, likes})=> {
 });
 
 picture.appendChild(similarPicturesFragment);
+export {similarPictures};
 
