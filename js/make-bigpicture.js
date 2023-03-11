@@ -22,7 +22,7 @@ const showBigPhoto = (evt) => {
 };
 
 function onHiddenBigPhoto(evt) {
-  if (!evt.target.close('.big-picture__preview') || evt.target.close('.big-picture__cancel')) {
+  if (!evt.target.closest('.big-picture__preview') || evt.target.closest('.big-picture__cancel')) {
     hiddenBigPhoto();
   }
 }
