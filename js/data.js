@@ -6,6 +6,8 @@ const MIN_LIKE_NUMBER = 15;
 const MAX_LIKE_NUMBER = 200;
 const MAX_COMMENT_NUMBER = 1000;
 const MAX_ARRAY_LENGHT = 25;
+const MIN_COMMENTS = 3;
+const MAX_COMMENTS = 16;
 //Массив имен
 const usersNames = ['Дмитрий','Воланд','Рафаэль', 'Евпатий', 'Ярик', 'Хуан'];
 //массив описания  фото
@@ -34,7 +36,7 @@ const createPhoto = () => ({
   url: `photos/${ generatePhotoId() }.jpg`,
   description: getRandomArrayElement(descriptionPhoto),
   likes: getRandom(MIN_LIKE_NUMBER, MAX_LIKE_NUMBER),
-  comments: createComments()
+  comments: Array.from({length: getRandom(MIN_COMMENTS, MAX_COMMENTS)}, createComments)
 });
 const createMockPhotos = ()=>Array.from({length: MAX_ARRAY_LENGHT}, createPhoto);
 export {createMockPhotos, createPhoto, createComments};
