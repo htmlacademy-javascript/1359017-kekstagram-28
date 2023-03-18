@@ -25,4 +25,7 @@ const getId = (min, max) => {
     return currentValue;
   };
 };
-export {getRandom, getRandomArrayElement, getId};
+
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export {getRandom, getRandomArrayElement, getId, isEscapeKey};
