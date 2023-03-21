@@ -67,7 +67,7 @@ const showBigPicture = (url, likes, comments, description) => {
   //createComment(comments);
   shownComments = comments;
   commentsLoaderElement.addEventListener('click', createMoreComments);
-  showComments();
+  showComments(comments);
 
 
 };
