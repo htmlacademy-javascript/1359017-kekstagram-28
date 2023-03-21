@@ -1,7 +1,7 @@
 import { isEscapeKey } from './util.js';
 
-//const COMMENTS_SHOW_DEFAULT = 5;
-//let shownComments;
+const COMMENTS_SHOW_DEFAULT = 5;
+let shownComments;
 
 const bodyElement = document.querySelector('body');
 
@@ -28,7 +28,7 @@ const createComment = (comment) => {
 };
 
 // Показ комментариев
-/*const showComments = (comments) => {
+const showComments = (comments) => {
   const showCommentsBy = comments.slice(0, COMMENTS_SHOW_DEFAULT);
 
   createComment(showCommentsBy);
@@ -54,7 +54,7 @@ const createMoreComments = () => {
     commentsLoaderElement.classList.add('hidden');
   }
 
-};*/
+};
 
 
 const showBigPicture = (url, likes, comments, description) => {
@@ -64,10 +64,10 @@ const showBigPicture = (url, likes, comments, description) => {
   commentsCountElement.textContent = comments.length;
   socialCaptionElement.textContent = description;
   socialComments.innerHTML = '';
-  createComment(comments);
-  /*shownComments = comments;
+  //createComment(comments);
+  shownComments = comments;
   commentsLoaderElement.addEventListener('click', createMoreComments);
-  showComments();*/
+  showComments(comments);
 
 
 };
@@ -91,9 +91,9 @@ function closeBigPhoto() {
   bodyElement.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
 
-  commentCountElement.classList.remove('hidden');
+  //commentCountElement.classList.remove('hidden');
   commentsLoaderElement.classList.remove('hidden');
-  //commentsLoaderElement.removeEventListener('click', createMoreComments);
+  commentsLoaderElement.removeEventListener('click', createMoreComments);
 
   bigPictureCancel.removeEventListener('click', () => {
     closeBigPhoto();

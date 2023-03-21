@@ -2,7 +2,7 @@ import { createMockPhotos } from './data.js';
 import { showBigPicture } from './make-bigpicture.js';
 
 
-const picture = document.querySelector('.pictures');
+const pictureContainer = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const similarPictures = createMockPhotos();
 
@@ -26,4 +26,4 @@ similarPictures.forEach (({url, comments, likes,description})=> {
   return pictureElement;
 });
 
-picture.append(similarPicturesFragment);
+pictureContainer.append(similarPicturesFragment);
