@@ -58,7 +58,7 @@ const createMoreComments = () => {
 
 
 const showBigPicture = (url, likes, comments, description) => {
-  openBigPhoto();
+  showModal();
   bigPictureElement.querySelector('img').src = url;
   likesCountElement.textContent = likes;
   commentsCountElement.textContent = comments.length;
@@ -75,18 +75,18 @@ const showBigPicture = (url, likes, comments, description) => {
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    closeBigPhoto();
+    hideModal();
   }
 };
 
-function openBigPhoto() {
+function showModal() {
   bigPictureElement.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
 
 }
 
-function closeBigPhoto() {
+function hideModal() {
   bigPictureElement.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
@@ -96,14 +96,14 @@ function closeBigPhoto() {
   commentsLoaderElement.removeEventListener('click', createMoreComments);
 
   bigPictureCancel.removeEventListener('click', () => {
-    closeBigPhoto();
+    hideModal();
   });
 }
 
 /*bigPictureCancel.addEventListener('click', () =>
   closeBigPhoto()
 );*/
-bigPictureCancel.addEventListener('click', closeBigPhoto);
+bigPictureCancel.addEventListener('click', hideModal);
 
 
 export { showBigPicture };
