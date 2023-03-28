@@ -34,9 +34,9 @@ const showAlert = (message) => {
 
   alertContainer.style.zIndex = 100;
   alertContainer.style.position = 'absolute';
-  alertContainer.style.left = 0;
-  alertContainer.style.top = 0;
-  alertContainer.style.right = 0;
+  alertContainer.style.left = '0';
+  alertContainer.style.top = '0';
+  alertContainer.style.right = '0';
   alertContainer.style.padding = '20px 3px';
   alertContainer.style.fontSize = '30px';
   alertContainer.style.textAlign = 'center';

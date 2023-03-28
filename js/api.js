@@ -13,6 +13,7 @@ const getData = (onSuccess) => {
   fetch(`${BASE_URL}${Routes.GET_DATA}`)
     .then((response) => {
       if(response.ok) {
+
         return response.json();
       }
       showAlert(`Ошибка! Код:${response.status}`);

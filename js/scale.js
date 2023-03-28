@@ -1,8 +1,9 @@
 const scalControlSmaller = document.querySelector('.scale__control--smaller');
 const scalControlBigger = document.querySelector('.scale__control--bigger');
 const scaleControlValue = document.querySelector('.scale__control--value');
-const photo = document.querySelector('.img-upload__preview');
-
+const photoElement = document.querySelector('.img-upload__preview img');
+const hashtagFieldElement = document.querySelector('.text__hashtags');
+const commentFieldElement = document.querySelector('.text__description');
 const effectList = document.querySelector('.img-upload__effects');
 const sliderContainer = document.querySelector('.img-upload__effect-level');
 const levelSlider = document.querySelector('.effect-level__slider');
@@ -70,7 +71,7 @@ noUiSlider.create(levelSlider, {
 });
 
 const changeSizePhoto = () => {
-  photo.style.transform = `scale(${parseInt(scaleControlValue.value, 10) / 100})`;
+  photoElement.style.transform = `scale(${parseInt(scaleControlValue.value, 10) / 100})`;
 };
 
 const smallerValue = () => {
@@ -95,14 +96,15 @@ const updateSlider = (min = 0, max = 100, step = 1) => {
 const updateFilter = (filter) => {
   typeEffect = filtersSettings?.[filter]?.css ?? '';
   typeUnit = filtersSettings?.[filter]?.unit ?? '';
-  photo.className = '';
+  photoElement.className = '';
 
   if (filter !== 'none') {
     sliderContainer.classList.remove('hidden');
-    photo.classList.add(`effects__preview--${filter}`);
+    photoElement.classList.add(`effects__preview--${filter}`);
   } else {
     sliderContainer.classList.add('hidden');
-    photo.style.filter = null;
+    photoElement.style.filter = null;
+
   }
 };
 
@@ -121,6 +123,7 @@ function onScalControlBiggerClick(evt) {
   if (parseInt(scaleControlValue.value, 10) < MAX_ZOOM) {
     biggerValue();
     changeSizePhoto();
+
   }
 }
 
@@ -135,19 +138,23 @@ function onFilterChange(evt) {
 function onLevelSliderUpdate() {
   const valueCurrent = levelSlider.noUiSlider.get();
   levelValue.value = valueCurrent;
-  photo.style.filter = `${typeEffect}(${valueCurrent + typeUnit})`;
+  photoElement.style.filter = `${typeEffect}(${valueCurrent + typeUnit})`;
 }
 
 levelSlider.noUiSlider.on('update', onLevelSliderUpdate);
 
 const resetPhotoStyles = () => {
   scaleControlValue.value = '100%';
-  photo.className = '';
-  photo.style = null;
+  photoElement.className = '';
+  photoElement.style = null;
   sliderContainer.classList.add('hidden');
   effectList.querySelector('#effect-none').checked = true;
+  hashtagFieldElement.value = '';
+  commentFieldElement.value = '';
   typeEffect = '';
   typeUnit = '';
+
+
 };
 
 const createFilterPhoto = () => {
@@ -164,4 +171,5 @@ const disableСreationFilterPhoto = () => {
 disableСreationFilterPhoto();
 createFilterPhoto();
 resetPhotoStyles();
-export {disableСreationFilterPhoto, createFilterPhoto, resetPhotoStyles} ;
+export {disableСreationFilterPhoto, createFilterPhoto, resetPhotoStyles,changeSizePhoto} ;
+
