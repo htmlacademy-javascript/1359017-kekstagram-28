@@ -9,7 +9,7 @@ const overlayElement = document.querySelector('.img-upload__overlay');
 const cancelButton = document.querySelector('#upload-cancel');
 
 imgInputElement.addEventListener('change',() => {
-  showModal();
+  openUploadModal();
 
 
 });
@@ -18,13 +18,13 @@ imgInputElement.addEventListener('change',() => {
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    hideModal();
+    closeUploadModal();
   }
 
 };
 
 
-function showModal() {
+function openUploadModal() {
   overlayElement.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
@@ -32,13 +32,13 @@ function showModal() {
 
 }
 
-function hideModal() {
+function closeUploadModal() {
   overlayElement.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
 
 }
 cancelButton.addEventListener('click', () =>
-  hideModal()
+  closeUploadModal()
 );
-export {onDocumentKeydown, hideModal};
+export {onDocumentKeydown, closeUploadModal};

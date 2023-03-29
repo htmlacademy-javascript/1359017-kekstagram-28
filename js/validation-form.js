@@ -1,7 +1,7 @@
 import { isEscapeKey } from './util.js';
 import { sendData } from './api.js';
 import {createSuccess, createError} from './success.js';
-import { hideModal} from './upload-photo.js';
+import { closeUploadModal} from './upload-photo.js';
 import {resetPhotoStyles, changeSizePhoto} from './scale.js';
 const bodyElement = document.querySelector('body');
 
@@ -123,5 +123,5 @@ commentFieldElement.addEventListener('keydown', (evt) => {
   }
 });
 
-setUserFormSubmit(hideModal);
+setUserFormSubmit(closeUploadModal);
 
