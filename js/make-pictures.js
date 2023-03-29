@@ -1,7 +1,5 @@
 //import { createMockPhotos } from './data.js';
 import { showBigPicture } from './make-bigpicture.js';
-import { getData } from './api.js';
-
 
 const pictureContainer = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
@@ -32,8 +30,5 @@ const renderSimilarPictures = (similarPictures)=>{
 
   pictureContainer.append(similarPicturesFragment);
 };
-getData((posts) => {
-  renderSimilarPictures(posts);
 
-});
 export {renderSimilarPictures};
