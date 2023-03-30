@@ -51,6 +51,19 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 
 };
+const shuffleArray = (array) => {
+  const newArray = array.slice();
+  newArray.sort(() => Math.random() - 0.5);
+  return newArray;
+};
 
+const debounce = (callback, timeoutDelay) => {
+  let timeoutId;
 
-export {getRandom, getRandomArrayElement, getId, isEscapeKey,showAlert};
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
+export {getRandom, getRandomArrayElement, getId, isEscapeKey,showAlert, shuffleArray, debounce};

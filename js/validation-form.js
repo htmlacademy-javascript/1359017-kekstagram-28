@@ -108,7 +108,6 @@ const setUserFormSubmit = (onSuccess) => {
   });
 };
 
-// При первичном нажатии ESC убирает фокус с элемента, при повторном (без фокуса) работает как обычно
 hashtagFieldElement.addEventListener('keydown', (evt) => {
   if (isEscapeKey(evt)) {
     evt.stopPropagation();
