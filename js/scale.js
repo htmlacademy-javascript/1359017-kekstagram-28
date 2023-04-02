@@ -140,7 +140,6 @@ function onLevelSliderUpdate() {
   levelValue.value = valueCurrent;
   photoElement.style.filter = `${typeEffect}(${valueCurrent + typeUnit})`;
 }
-
 levelSlider.noUiSlider.on('update', onLevelSliderUpdate);
 
 const resetPhotoStyles = () => {
@@ -153,8 +152,6 @@ const resetPhotoStyles = () => {
   commentFieldElement.value = '';
   typeEffect = '';
   typeUnit = '';
-
-
 };
 
 const createFilterPhoto = () => {
@@ -171,5 +168,6 @@ const disableСreationFilterPhoto = () => {
 disableСreationFilterPhoto();
 createFilterPhoto();
 resetPhotoStyles();
+
 export {disableСreationFilterPhoto, createFilterPhoto, resetPhotoStyles,changeSizePhoto} ;
 

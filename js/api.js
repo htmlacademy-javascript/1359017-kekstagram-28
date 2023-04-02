@@ -22,6 +22,9 @@ const getData = (onSuccess) => {
     )
     .then((photos) => {
       onSuccess(photos);
+    })
+    .catch(() => {
+      showAlert('Ошибка загрузки.Попробуйте позже');
     });
 };
 

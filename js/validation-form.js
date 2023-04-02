@@ -5,15 +5,12 @@ import { closeUploadModal} from './upload-photo.js';
 import {resetPhotoStyles, changeSizePhoto} from './scale.js';
 const bodyElement = document.querySelector('body');
 
-
 const HASHTAG_REGEX = /#[a-zа-яё0-9]{1,19}$/i;
 const MAX_HASHTAG_COUNT = 5;
-
 const uploadForm = document.querySelector('.img-upload__form');
 const hashtagFieldElement = document.querySelector('.text__hashtags');
 const commentFieldElement = document.querySelector('.text__description');
 const submitButtonElement = uploadForm.querySelector('#upload-submit');
-
 
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',
@@ -37,9 +34,7 @@ const validateSimilarHashtags = (text) => {
     .toLowerCase()
     .split('#');
   textArray.shift();
-
   const unique = Array.from(new Set(textArray));
-
   return textArray.length === unique.length;
 
 };
@@ -68,13 +63,11 @@ pristine.addValidator(
 const blockSubmitButton = () => {
   submitButtonElement.disabled = true;
   submitButtonElement.textContent = 'Публикую...';
-
 };
 
 const unblockSubmitButton = () => {
   submitButtonElement.disabled = false;
   submitButtonElement.textContent = 'Опубликовать';
-
 };
 
 const setUserFormSubmit = (onSuccess) => {
@@ -93,7 +86,6 @@ const setUserFormSubmit = (onSuccess) => {
           resetPhotoStyles();
           bodyElement.classList.add('modal-open');
           evt.target.reset();
-
         },
         () => {
           createError();
@@ -104,10 +96,8 @@ const setUserFormSubmit = (onSuccess) => {
         unblockSubmitButton
       );
     }
-
   });
 };
-
 hashtagFieldElement.addEventListener('keydown', (evt) => {
   if (isEscapeKey(evt)) {
     evt.stopPropagation();

@@ -48,10 +48,24 @@ const changePhotosByFilter = (posts, evt) => {
   }
 
 };
-getData((posts) => {
+/*getData((posts) => {
   renderSimilarPictures(posts);
 
   imgFilterElement.addEventListener('click', debounce((evt) => changePhotosByFilter(posts, evt), RERENDER_DELAY,));
   imgFilterElement.addEventListener('click', (evt) => makeButtonActive(evt));
 
+});*/
+const showFilteredPictures = (posts) => {
+  imgFilterElement.addEventListener('click', debounce((evt) => {
+    changePhotosByFilter(posts, evt);
+  }, RERENDER_DELAY));
+};
+const onFilterClic = (photos) => {
+  imgFilterElement.addEventListener('click', (evt) =>
+    makeButtonActive(evt,photos));
+};
+getData ((photos) => {
+  renderSimilarPictures(photos);
+  showFilteredPictures(photos);
+  onFilterClic(photos);
 });
