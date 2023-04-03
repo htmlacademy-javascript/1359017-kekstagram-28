@@ -2,8 +2,8 @@ const scalControlSmaller = document.querySelector('.scale__control--smaller');
 const scalControlBigger = document.querySelector('.scale__control--bigger');
 const scaleControlValue = document.querySelector('.scale__control--value');
 const photoElement = document.querySelector('.img-upload__preview img');
-const hashtagFieldElement = document.querySelector('.text__hashtags');
-const commentFieldElement = document.querySelector('.text__description');
+//const hashtagFieldElement = document.querySelector('.text__hashtags');
+//const commentFieldElement = document.querySelector('.text__description');
 const effectList = document.querySelector('.img-upload__effects');
 const sliderContainer = document.querySelector('.img-upload__effect-level');
 const levelSlider = document.querySelector('.effect-level__slider');
@@ -13,7 +13,7 @@ const MIN_ZOOM = 25;
 const MAX_ZOOM = 100;
 let typeEffect = '';
 let typeUnit = '';
-
+const DEFAULT_VALUE_SCALE = 100;
 const filtersSettings = {
   chrome: {
     min: 0,
@@ -142,7 +142,7 @@ function onLevelSliderUpdate() {
 }
 levelSlider.noUiSlider.on('update', onLevelSliderUpdate);
 
-const resetPhotoStyles = () => {
+/*const resetPhotoStyles = () => {
   scaleControlValue.value = '100%';
   photoElement.className = '';
   photoElement.style = null;
@@ -152,7 +152,7 @@ const resetPhotoStyles = () => {
   commentFieldElement.value = '';
   typeEffect = '';
   typeUnit = '';
-};
+};*/
 
 const createFilterPhoto = () => {
   scalControlSmaller.addEventListener('click', onScalControlSmallerClick);
@@ -165,9 +165,10 @@ const disableСreationFilterPhoto = () => {
   scalControlBigger.removeEventListener('click', onScalControlBiggerClick);
   effectList.removeEventListener('change', onFilterChange);
 };
+export const resetValueScale = () => changeSizePhoto(DEFAULT_VALUE_SCALE);
 disableСreationFilterPhoto();
 createFilterPhoto();
-resetPhotoStyles();
+//resetPhotoStyles();
 
-export {disableСreationFilterPhoto, createFilterPhoto, resetPhotoStyles,changeSizePhoto} ;
+export {disableСreationFilterPhoto, createFilterPhoto, /*resetPhotoStyles,*/changeSizePhoto} ;
 

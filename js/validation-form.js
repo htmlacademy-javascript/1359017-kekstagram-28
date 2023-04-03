@@ -2,11 +2,12 @@ import { isEscapeKey } from './util.js';
 import { sendData } from './api.js';
 import {createSuccess, createError} from './success.js';
 import { closeUploadModal} from './upload-photo.js';
-import {resetPhotoStyles, changeSizePhoto} from './scale.js';
+import {/*resetPhotoStyles,*/ changeSizePhoto} from './scale.js';
 const bodyElement = document.querySelector('body');
 
 const HASHTAG_REGEX = /#[a-zа-яё0-9]{1,19}$/i;
 const MAX_HASHTAG_COUNT = 5;
+const COMMENT_MAX_LENGTH = 140;
 const uploadForm = document.querySelector('.img-upload__form');
 const hashtagFieldElement = document.querySelector('.text__hashtags');
 const commentFieldElement = document.querySelector('.text__description');
@@ -83,7 +84,7 @@ const setUserFormSubmit = (onSuccess) => {
           blockSubmitButton();
           createSuccess();
           changeSizePhoto();
-          resetPhotoStyles();
+          //resetPhotoStyles();
           bodyElement.classList.add('modal-open');
           evt.target.reset();
         },
@@ -111,6 +112,19 @@ commentFieldElement.addEventListener('keydown', (evt) => {
     document.activeElement.blur();
   }
 });
+const commentTextInput = () => {
+  const valueLength = commentFieldElement.value.length;
+  if (valueLength > COMMENT_MAX_LENGTH) {
+    commentFieldElement.setCustomValidity('Максимальная длина комментария 140 символов. Удалите лишнee.');
+    commentFieldElement.style.borderColor = '#FF5F49';
+  } else {
+    commentFieldElement.setCustomValidity('');
+    commentFieldElement.style.borderColor = '';
+  }
+  commentFieldElement.reportValidity();
+};
+
+commentFieldElement.addEventListener('input', commentTextInput);
 
 setUserFormSubmit(closeUploadModal);
 

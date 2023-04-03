@@ -19,7 +19,7 @@ const removeSuccessMessage = () => {
 
 function onErrorMessageKeydown(evt) {
   if (isEscapeKey(evt)) {
-    evt.preventDefault();
+    evt.stopPropagation();
     removeErrorMessage();
   }
 }
