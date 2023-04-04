@@ -3,10 +3,8 @@ import { shuffleArray,debounce } from './util.js';
 import { getData } from './api.js';
 const MAX_RANDOM_PHOTOS = 10;
 const RERENDER_DELAY = 500;
-
 const imgFilterElement = document.querySelector('.img-filters');
 const filterButtonsElements = document.querySelectorAll('.img-filters__button');
-
 const makeButtonActive = (evt) => {
   filterButtonsElements.forEach((option) => {
     if (evt.target.classList.contains('img-filters__button')) {
@@ -16,7 +14,6 @@ const makeButtonActive = (evt) => {
   if (evt.target.classList.contains('img-filters__button')) {
     evt.target.classList.add('img-filters__button--active');
   }
-
 };
 const changePhotosByFilter = (posts, evt) => {
   if (evt.target.classList.contains('img-filters__button')) {
@@ -46,15 +43,8 @@ const changePhotosByFilter = (posts, evt) => {
       renderSimilarPictures(photosList);
       break;
   }
-
 };
-/*getData((posts) => {
-  renderSimilarPictures(posts);
 
-  imgFilterElement.addEventListener('click', debounce((evt) => changePhotosByFilter(posts, evt), RERENDER_DELAY,));
-  imgFilterElement.addEventListener('click', (evt) => makeButtonActive(evt));
-
-});*/
 const showFilteredPictures = (posts) => {
   imgFilterElement.addEventListener('click', debounce((evt) => {
     changePhotosByFilter(posts, evt);

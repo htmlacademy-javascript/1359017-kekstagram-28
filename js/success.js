@@ -1,72 +1,79 @@
 import { isEscapeKey } from './util.js';
-
-const errorTemplate = document.querySelector('#error').content.querySelector('.error');
-const successTemplate = document.querySelector('#success').content.querySelector('.success');
-
-const removeErrorMessage = () => {
-  document.removeEventListener('keydown', onErrorMessageKeydown);
-  document.querySelector('.error').removeEventListener('click', onErrorMessageClick);
-
-  document.querySelector('.error').remove();
-};
-
-const removeSuccessMessage = () => {
-  document.removeEventListener('keydown', onSuccessMessageKeydown);
-  document.querySelector('.success').removeEventListener('click', onSuccessMessageClick);
-
-  document.querySelector('.success').remove();
-};
-
-function onErrorMessageKeydown(evt) {
-  if (isEscapeKey(evt)) {
-    evt.stopPropagation();
-    removeErrorMessage();
-  }
-}
-
-function onSuccessMessageKeydown(evt) {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    removeSuccessMessage();
-  }
-}
-
-function onErrorMessageClick(evt) {
-  evt.preventDefault();
-  if (evt.target.matches('.error') || evt.target.closest('.error__button')) {
-    removeErrorMessage();
-  }
-}
-
-function onSuccessMessageClick(evt) {
-  evt.preventDefault();
-  if (evt.target.matches('.success') || evt.target.closest('.success__button')) {
-    removeSuccessMessage();
-  }
-}
-
-const renderMessage = (element) => document.body.append(element);
-
-const createErrorLoadMessage = (message) => {
-  const div = document.createElement('div');
-  div.classList.add('error-message');
-  div.textContent = message;
-  renderMessage(div);
-};
+import { onDocumentKeydown,closeUploadModal} from './upload-photo.js';
+const errorElement = document.querySelector('#error').content;
+const successElement = document.querySelector('#success').content;
 
 const createError = () => {
-  const errorMessage = errorTemplate.cloneNode(true);
-  renderMessage(errorMessage);
+  const errorClone = errorElement.querySelector('section').cloneNode(true);
+  document.body.insertAdjacentElement('beforeend', errorClone);
+  document.removeEventListener('keydown', onDocumentKeydown);
+  document.addEventListener('keydown', onErrorKeydown);
 
-  document.addEventListener('keydown', onErrorMessageKeydown);
-  document.querySelector('.error').addEventListener('click', onErrorMessageClick);
+  const removeErrorMessage = () => {
+    errorClone.remove();
+    document.removeEventListener('keydown', onErrorKeydown);
+    document.addEventListener('keydown', onDocumentKeydown);
+  };
+
+  const removerOutError = (evt) => {
+    if (!evt.target.closest('.error__inner')) {
+      removeErrorMessage();
+      document.removeEventListener('click', removerOutError);
+    }
+  };
+
+  function onErrorKeydown(evt) {
+    if (isEscapeKey(evt)) {
+      evt.stopPropagation();
+      errorClone.remove();
+      document.removeEventListener('keydown', onErrorKeydown);
+      document.addEventListener('keydown', onDocumentKeydown);
+      document.removeEventListener('click', removerOutError);
+
+    }
+  }
+  errorClone.querySelector('.error__button').addEventListener('click', () => {
+    removeErrorMessage();
+    document.removeEventListener('click', removerOutError);
+  });
+
+  document.addEventListener('click', removerOutError);
 };
 
 const createSuccess = () => {
-  const successMessage = successTemplate.cloneNode(true);
-  renderMessage(successMessage);
+  const successClone = successElement.querySelector('section').cloneNode(true);
+  document.body.insertAdjacentElement('beforeend', successClone);
 
-  document.addEventListener('keydown', onSuccessMessageKeydown);
-  document.querySelector('.success').addEventListener('click', onSuccessMessageClick);
+  const removeSuccessMessage = () => {
+    closeUploadModal();
+    successClone.remove();
+    document.removeEventListener('keydown', onSuccessKeydown);
+  };
+
+  const removeOutSuccess = (evt) => {
+    if (!evt.target.closest('.success__inner')) {
+      removeSuccessMessage();
+      document.removeEventListener('click', removeOutSuccess);
+    }
+  };
+
+  function onSuccessKeydown(evt) {
+    if (isEscapeKey(evt)) {
+      evt.preventDefault();
+      successClone.remove();
+      document.removeEventListener('keydown', onSuccessKeydown);
+      document.removeEventListener('click', removeOutSuccess);
+    }
+  }
+
+  document.addEventListener('keydown',onSuccessKeydown);
+
+  successClone.querySelector('.success__button').addEventListener('click', () => {
+    removeSuccessMessage();
+    document.removeEventListener('click', removeOutSuccess);
+  });
+
+  document.addEventListener('click', removeOutSuccess);
 };
-export {createSuccess,createError,createErrorLoadMessage};
+export{createSuccess, createError,};
+

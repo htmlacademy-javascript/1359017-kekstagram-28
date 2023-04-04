@@ -17,7 +17,6 @@ const getData = (onSuccess) => {
         filterElement.classList.remove('img-filters--inactive');
         return response.json();
       }
-      showAlert(`Ошибка! Код:${response.status}`);
     }
     )
     .then((photos) => {
@@ -49,6 +48,4 @@ const sendData = (onSuccess, onFail, body, finalSubmit) => {
       finalSubmit();
     });
 };
-
-
 export {getData, sendData};

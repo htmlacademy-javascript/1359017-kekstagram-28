@@ -2,9 +2,8 @@ import { isEscapeKey } from './util.js';
 import { sendData } from './api.js';
 import {createSuccess, createError} from './success.js';
 import { closeUploadModal} from './upload-photo.js';
-import {/*resetPhotoStyles,*/ changeSizePhoto} from './scale.js';
+import { changeSizePhoto} from './scale.js';
 const bodyElement = document.querySelector('body');
-
 const HASHTAG_REGEX = /#[a-zа-яё0-9]{1,19}$/i;
 const MAX_HASHTAG_COUNT = 5;
 const COMMENT_MAX_LENGTH = 140;
@@ -12,7 +11,6 @@ const uploadForm = document.querySelector('.img-upload__form');
 const hashtagFieldElement = document.querySelector('.text__hashtags');
 const commentFieldElement = document.querySelector('.text__description');
 const submitButtonElement = uploadForm.querySelector('#upload-submit');
-
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',
   errorClass: 'form__item--invalid',
@@ -20,9 +18,7 @@ const pristine = new Pristine(uploadForm, {
   errorTextTag: 'div',
   errorTextClass: 'text__hashtags-error',
 });
-
 const validateHashtag = (text) => HASHTAG_REGEX.test(text) || text === '';
-
 const validateHashtagCount = (text) =>
   text
     .split('')
@@ -37,7 +33,6 @@ const validateSimilarHashtags = (text) => {
   textArray.shift();
   const unique = Array.from(new Set(textArray));
   return textArray.length === unique.length;
-
 };
 
 // Валидатор правильности хештега
@@ -123,8 +118,6 @@ const commentTextInput = () => {
   }
   commentFieldElement.reportValidity();
 };
-
 commentFieldElement.addEventListener('input', commentTextInput);
-
 setUserFormSubmit(closeUploadModal);
 
