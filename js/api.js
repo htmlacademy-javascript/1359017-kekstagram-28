@@ -17,11 +17,13 @@ const getData = (onSuccess) => {
         filterElement.classList.remove('img-filters--inactive');
         return response.json();
       }
-      showAlert(`Ошибка! Код:${response.status}`);
     }
     )
     .then((photos) => {
       onSuccess(photos);
+    })
+    .catch(() => {
+      showAlert('Ошибка загрузки.Попробуйте позже');
     });
 };
 
@@ -46,6 +48,4 @@ const sendData = (onSuccess, onFail, body, finalSubmit) => {
       finalSubmit();
     });
 };
-
-
 export {getData, sendData};

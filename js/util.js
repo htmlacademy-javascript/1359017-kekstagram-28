@@ -12,7 +12,6 @@ const getRandomArrayElement = (elements) => elements [getRandom(0, elements.leng
 // получаем случайное неповторяющееся число.
 const getId = (min, max) => {
   const previousValues = [];
-
   return function () {
     let currentValue = getRandom(min, max);
     if (previousValues.length >= (max - min + 1)) {
@@ -25,13 +24,11 @@ const getId = (min, max) => {
     return currentValue;
   };
 };
-
 const isEscapeKey = (evt) => evt.key === 'Escape';
 const ALERT_SHOW_TIME = 8000;
 
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
-
   alertContainer.style.zIndex = 100;
   alertContainer.style.position = 'absolute';
   alertContainer.style.left = '0';
@@ -41,25 +38,20 @@ const showAlert = (message) => {
   alertContainer.style.fontSize = '30px';
   alertContainer.style.textAlign = 'center';
   alertContainer.style.backgroundColor = 'red';
-
   alertContainer.textContent = message;
-
   document.body.append(alertContainer);
 
   setTimeout(() => {
     alertContainer.remove();
   }, ALERT_SHOW_TIME);
-
 };
 const shuffleArray = (array) => {
   const newArray = array.slice();
   newArray.sort(() => Math.random() - 0.5);
   return newArray;
 };
-
 const debounce = (callback, timeoutDelay) => {
   let timeoutId;
-
   return (...rest) => {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);

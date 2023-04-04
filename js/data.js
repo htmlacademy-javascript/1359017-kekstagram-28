@@ -40,6 +40,3 @@ const createPhoto = () => ({
 });
 const createMockPhotos = ()=>Array.from({length: MAX_ARRAY_LENGHT}, createPhoto);
 export {createMockPhotos, createPhoto, createComments};
-/*console.log(createPhoto());
-console.log(createComments());
-*/
