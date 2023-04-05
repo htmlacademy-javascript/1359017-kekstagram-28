@@ -15,10 +15,10 @@ const createError = () => {
     document.addEventListener('keydown', onDocumentKeydown);
   };
 
-  const removerOutError = (evt) => {
+  const removeOutError = (evt) => {
     if (!evt.target.closest('.error__inner')) {
       removeErrorMessage();
-      document.removeEventListener('click', removerOutError);
+      document.removeEventListener('click', removeOutError);
     }
   };
 
@@ -28,16 +28,16 @@ const createError = () => {
       errorClone.remove();
       document.removeEventListener('keydown', onErrorKeydown);
       document.addEventListener('keydown', onDocumentKeydown);
-      document.removeEventListener('click', removerOutError);
+      document.removeEventListener('click', removeOutError);
 
     }
   }
   errorClone.querySelector('.error__button').addEventListener('click', () => {
     removeErrorMessage();
-    document.removeEventListener('click', removerOutError);
+    document.removeEventListener('click', removeOutError);
   });
 
-  document.addEventListener('click', removerOutError);
+  document.addEventListener('click', removeOutError);
 };
 
 const createSuccess = () => {

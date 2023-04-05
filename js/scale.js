@@ -1,3 +1,9 @@
+const MIN_ZOOM = 25;
+const MAX_ZOOM = 100;
+const DEFAULT_VALUE_SCALE = 100;
+let typeEffect = '';
+let typeUnit = '';
+
 const scalControlSmaller = document.querySelector('.scale__control--smaller');
 const scalControlBigger = document.querySelector('.scale__control--bigger');
 const scaleControlValue = document.querySelector('.scale__control--value');
@@ -7,11 +13,6 @@ const sliderContainer = document.querySelector('.img-upload__effect-level');
 const levelSlider = document.querySelector('.effect-level__slider');
 const levelValue = document.querySelector('.effect-level__value');
 
-const MIN_ZOOM = 25;
-const MAX_ZOOM = 100;
-let typeEffect = '';
-let typeUnit = '';
-const DEFAULT_VALUE_SCALE = 100;
 const filtersSettings = {
   chrome: {
     min: 0,
@@ -72,11 +73,11 @@ const changeSizePhoto = () => {
   photoElement.style.transform = `scale(${parseInt(scaleControlValue.value, 10) / 100})`;
 };
 
-const smallerValue = () => {
+const smallValue = () => {
   scaleControlValue.value = `${parseInt(scaleControlValue.value, 10) - 25}%`;
 };
 
-const biggerValue = () => {
+const bigValue = () => {
   scaleControlValue.value = `${parseInt(scaleControlValue.value, 10) + 25}%`;
 };
 
@@ -110,7 +111,7 @@ function onScalControlSmallerClick(evt) {
   evt.preventDefault();
 
   if (parseInt(scaleControlValue.value, 10) > MIN_ZOOM) {
-    smallerValue();
+    smallValue();
     changeSizePhoto();
   }
 }
@@ -118,7 +119,7 @@ function onScalControlSmallerClick(evt) {
 function onScalControlBiggerClick(evt) {
   evt.preventDefault();
   if (parseInt(scaleControlValue.value, 10) < MAX_ZOOM) {
-    biggerValue();
+    bigValue();
     changeSizePhoto();
   }
 }

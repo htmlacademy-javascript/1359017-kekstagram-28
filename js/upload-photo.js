@@ -1,7 +1,7 @@
 import { isEscapeKey } from './util.js';
 import { resetValueScale} from './scale.js';
 
-const FILE_FORMATS = ['jpg', 'jpeg', 'png'];
+const FORMATS = ['jpg', 'jpeg', 'png'];
 
 const bodyElement = document.querySelector('body');
 const imgUploadElement = document.querySelector('#upload-file');
@@ -24,7 +24,6 @@ const refreshUploadPopup = () => {
   hashtagFieldElement.value = '';
   commentFieldElement.value = '';
 };
-//const removeErrorElementTimeout = debounce(() => removeErrorElement(), FILE_TYPES_ERROR_TIMER);
 
 const displayImage = (image) => {
   const img = URL.createObjectURL(image);
@@ -38,7 +37,7 @@ imgUploadElement.addEventListener('change',() => {
   openUploadModal();
   const file = imgUploadElement.files[0];
   const fileName = file.name.toLowerCase();
-  const matches = FILE_FORMATS.some((it) => fileName.endsWith(it));
+  const matches = FORMATS.some((it) => fileName.endsWith(it));
   if (matches) {
     displayImage(file);
   }
@@ -48,6 +47,7 @@ const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     closeUploadModal();
+
   }
 };
 function closeUploadModal() {
@@ -56,6 +56,7 @@ function closeUploadModal() {
   formElement.reset();
   window.removeEventListener('keydown', onDocumentKeydown);
   cancelButtonElement.removeEventListener('click', closeUploadModal);
+
 }
 function openUploadModal() {
   overlayElement.classList.remove('hidden');
