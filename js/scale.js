@@ -1,3 +1,4 @@
+const SCALE_STEP = 25;
 const MIN_ZOOM = 25;
 const MAX_ZOOM = 100;
 const DEFAULT_VALUE_SCALE = 100;
@@ -69,17 +70,11 @@ noUiSlider.create(levelSlider, {
   },
 });
 
-const changeSizePhoto = () => {
-  photoElement.style.transform = `scale(${parseInt(scaleControlValue.value, 10) / 100})`;
+const changeSizePhoto = (value) => {
+  photoElement.style.transform = `scale(${value / 100})`; //применяем стиль transform(scale)
+  scaleControlValue.value = `${value}%`;
 };
 
-const smallValue = () => {
-  scaleControlValue.value = `${parseInt(scaleControlValue.value, 10) - 25}%`;
-};
-
-const bigValue = () => {
-  scaleControlValue.value = `${parseInt(scaleControlValue.value, 10) + 25}%`;
-};
 
 const updateSlider = (min = 0, max = 100, step = 1) => {
   levelSlider.noUiSlider.updateOptions({
@@ -107,22 +102,26 @@ const updateFilter = (filter) => {
   }
 };
 
-const onScalControlSmallerClick = (evt) => {
-  evt.preventDefault();
+const onScalControlSmallerClick = () => {
+  const currentValue = parseInt(scaleControlValue.value, 10);
+  let newValue = currentValue - SCALE_STEP;
 
-  if (parseInt(scaleControlValue.value, 10) > MIN_ZOOM) {
-    smallValue();
-    changeSizePhoto();
+  if (newValue < MIN_ZOOM) {
+    newValue = MIN_ZOOM;
   }
+  changeSizePhoto(newValue);
 };
 
-const onScalControlBiggerClick = (evt) => {
-  evt.preventDefault();
-  if (parseInt(scaleControlValue.value, 10) < MAX_ZOOM) {
-    bigValue();
-    changeSizePhoto();
+const onScalControlBiggerClick = () => {
+  const currentValue = parseInt(scaleControlValue.value, 10);
+  let newValue = currentValue + SCALE_STEP;
+
+  if (newValue > MAX_ZOOM) {
+    newValue = MAX_ZOOM;
   }
+  changeSizePhoto(newValue);
 };
+
 
 const onFilterChange = (evt) => {
   if (evt.target.closest('.effects__radio')) {
