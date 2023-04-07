@@ -3,7 +3,7 @@ const COMMENTS_SHOW_DEFAULT = 5;
 let shownComments;
 const bodyElement = document.querySelector('body');
 const bigPictureElement = document.querySelector('.big-picture');
-const bigPictureCancel = document.querySelector('.big-picture__cancel');
+const cancelButtonElement = document.querySelector('.big-picture__cancel');
 const socialComments = document.querySelector('.social__comments');
 const commentElement = document.querySelector('.social__comment');
 const likesCountElement = document.querySelector('.likes-count');
@@ -75,7 +75,7 @@ function closeUserModal() {
   commentsLoaderElement.classList.remove('hidden');
   commentsLoaderElement.removeEventListener('click', createMoreComments);
 }
-bigPictureCancel.addEventListener('click',()=>
+cancelButtonElement.addEventListener('click',()=>
   closeUserModal()
 );
 

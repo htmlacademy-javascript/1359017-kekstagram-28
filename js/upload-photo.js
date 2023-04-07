@@ -2,7 +2,6 @@ import { isEscapeKey } from './util.js';
 import { resetValueScale} from './scale.js';
 import { pristine } from './validation-form.js';
 
-
 const FORMATS = ['jpg', 'jpeg', 'png'];
 
 const bodyElement = document.querySelector('body');
