@@ -79,6 +79,5 @@ bigPictureCancel.addEventListener('click',()=>
   closeUserModal()
 );
 
-
 export { showBigPicture };
 
