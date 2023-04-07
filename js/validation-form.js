@@ -110,3 +110,4 @@ commentFieldElement.addEventListener('keydown', (evt) => {
 });
 commentFieldElement.addEventListener('input', validateComment);
 setUserFormSubmit(closeUploadModal);
+export {pristine};

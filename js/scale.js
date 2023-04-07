@@ -154,3 +154,5 @@ disableСreationFilterPhoto();
 createFilterPhoto();
 
 export {disableСreationFilterPhoto, createFilterPhoto, changeSizePhoto} ;
+
+

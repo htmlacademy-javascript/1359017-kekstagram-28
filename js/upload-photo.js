@@ -1,5 +1,7 @@
 import { isEscapeKey } from './util.js';
 import { resetValueScale} from './scale.js';
+import { pristine } from './validation-form.js';
+
 
 const FORMATS = ['jpg', 'jpeg', 'png'];
 
@@ -47,6 +49,7 @@ const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     closeUploadModal();
+    pristine.reset();
 
   }
 };
@@ -54,6 +57,7 @@ function closeUploadModal() {
   overlayElement.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
   formElement.reset();
+  pristine.reset();
   window.removeEventListener('keydown', onDocumentKeydown);
   cancelButtonElement.removeEventListener('click', closeUploadModal);
 
@@ -62,9 +66,10 @@ function openUploadModal() {
   overlayElement.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
   resetValueScale();
+  pristine.reset();
   window.addEventListener('keydown', onDocumentKeydown);
   cancelButtonElement.addEventListener('click', closeUploadModal);
   refreshUploadPopup();
 }
 
-export {closeUploadModal,onDocumentKeydown};
+export {closeUploadModal};
