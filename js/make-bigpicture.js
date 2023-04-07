@@ -32,7 +32,7 @@ const showComments = (comments) => {
   }
 };
 // Добавление еще комментариев
-const createMoreComments = () => {
+const onCommentsLoaderClick = () => {
   const additionalCommentsToShow = shownComments
     .slice(socialComments.children.length, socialComments.children.length + 5);
   createComment(additionalCommentsToShow);
@@ -44,39 +44,38 @@ const createMoreComments = () => {
 };
 
 const showBigPicture = (url, likes, comments, description) => {
-  openUserModal();
+  onOpenUserModal();
   bigPictureElement.querySelector('img').src = url;
   likesCountElement.textContent = likes;
   commentsCountElement.textContent = comments.length;
   socialCaptionElement.textContent = description;
   socialComments.innerHTML = '';
   shownComments = comments;
-  commentsLoaderElement.addEventListener('click', createMoreComments);
+  commentsLoaderElement.addEventListener('click', onCommentsLoaderClick);
   showComments(comments);
 };
-
-const onDocumentKeydown = (evt) => {
+const onBigPictureKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    closeUserModal();
+    onCloseUserModal();
   }
 };
 
-function openUserModal() {
+function onOpenUserModal() {
   bigPictureElement.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
-  document.addEventListener('keydown', onDocumentKeydown);
+  document.addEventListener('keydown', onBigPictureKeydown);
 }
 
-function closeUserModal() {
+function onCloseUserModal() {
   bigPictureElement.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
-  document.removeEventListener('keydown', onDocumentKeydown);
+  document.removeEventListener('keydown', onBigPictureKeydown);
   commentsLoaderElement.classList.remove('hidden');
-  commentsLoaderElement.removeEventListener('click', createMoreComments);
+  commentsLoaderElement.removeEventListener('click', onCommentsLoaderClick);
 }
 cancelButtonElement.addEventListener('click',()=>
-  closeUserModal()
+  onCloseUserModal()
 );
 
 export { showBigPicture };

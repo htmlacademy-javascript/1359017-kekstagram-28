@@ -1,7 +1,7 @@
 import { isEscapeKey } from './util.js';
 import { sendData } from './api.js';
 import {createSuccess, createError} from './success.js';
-import { closeUploadModal} from './upload-photo.js';
+import { onCloseUploadModal} from './upload-photo.js';
 import { changeSizePhoto} from './scale.js';
 const HASHTAG_REGEX = /#[a-zа-яё0-9]{1,19}$/i;
 const MAX_HASHTAG_COUNT = 5;
@@ -109,5 +109,5 @@ commentFieldElement.addEventListener('keydown', (evt) => {
   }
 });
 commentFieldElement.addEventListener('input', validateComment);
-setUserFormSubmit(closeUploadModal);
+setUserFormSubmit(onCloseUploadModal);
 export {pristine};
