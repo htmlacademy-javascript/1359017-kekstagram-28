@@ -107,36 +107,36 @@ const updateFilter = (filter) => {
   }
 };
 
-function onScalControlSmallerClick(evt) {
+const onScalControlSmallerClick = (evt) => {
   evt.preventDefault();
 
   if (parseInt(scaleControlValue.value, 10) > MIN_ZOOM) {
     smallValue();
     changeSizePhoto();
   }
-}
+};
 
-function onScalControlBiggerClick(evt) {
+const onScalControlBiggerClick = (evt) => {
   evt.preventDefault();
   if (parseInt(scaleControlValue.value, 10) < MAX_ZOOM) {
     bigValue();
     changeSizePhoto();
   }
-}
+};
 
-function onFilterChange(evt) {
+const onFilterChange = (evt) => {
   if (evt.target.closest('.effects__radio')) {
     const filter = evt.target.value;
     updateFilter(filter);
     updateSlider(filtersSettings?.[filter]?.min, filtersSettings?.[filter]?.max, filtersSettings?.[filter]?.step);
   }
-}
+};
 
-function onLevelSliderUpdate() {
+const onLevelSliderUpdate = () => {
   const valueCurrent = levelSlider.noUiSlider.get();
   levelValue.value = valueCurrent;
   photoElement.style.filter = `${typeEffect}(${valueCurrent + typeUnit})`;
-}
+};
 levelSlider.noUiSlider.on('update', onLevelSliderUpdate);
 const createFilterPhoto = () => {
   scalControlSmaller.addEventListener('click', onScalControlSmallerClick);
@@ -154,5 +154,3 @@ disableСreationFilterPhoto();
 createFilterPhoto();
 
 export {disableСreationFilterPhoto, createFilterPhoto, changeSizePhoto} ;
-
-

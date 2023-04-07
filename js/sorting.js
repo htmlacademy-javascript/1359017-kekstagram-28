@@ -5,6 +5,11 @@ const MAX_RANDOM_PHOTOS = 10;
 const RERENDER_DELAY = 500;
 const imgFilterElement = document.querySelector('.img-filters');
 const filterButtonsElements = document.querySelectorAll('.img-filters__button');
+const removePhotos = () => {
+  const imageElements = document.querySelectorAll('.picture');
+  imageElements.forEach((element) => element.remove());
+};
+
 const makeButtonActive = (evt) => {
   filterButtonsElements.forEach((option) => {
     if (evt.target.classList.contains('img-filters__button')) {
@@ -15,12 +20,9 @@ const makeButtonActive = (evt) => {
     evt.target.classList.add('img-filters__button--active');
   }
 };
+
 const changePhotosByFilter = (posts, evt) => {
-  if (evt.target.classList.contains('img-filters__button')) {
-    document.querySelectorAll('.picture').forEach((pic) => {
-      pic.remove();
-    });
-  }
+  removePhotos();
   let photosList = posts;
   switch (evt.target.id) {
     case 'filter-default':
