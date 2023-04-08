@@ -3,6 +3,7 @@ import { sendData } from './api.js';
 import {createSuccess, createError} from './success.js';
 import { onCloseUploadModal} from './upload-photo.js';
 import { changeSizePhoto} from './scale.js';
+
 const HASHTAG_REGEX = /#[a-zа-яё0-9]{1,19}$/i;
 const MAX_HASHTAG_COUNT = 5;
 const COMMENT_MAX_LENGTH = 140;

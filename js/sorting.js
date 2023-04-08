@@ -3,6 +3,7 @@ import { shuffleArray,debounce } from './util.js';
 import { getData } from './api.js';
 const MAX_RANDOM_PHOTOS = 10;
 const RERENDER_DELAY = 500;
+
 const imgFilterElement = document.querySelector('.img-filters');
 const filterButtonsElements = document.querySelectorAll('.img-filters__button');
 const removePhotos = () => {
