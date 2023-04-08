@@ -2,6 +2,7 @@ import { showBigPicture } from './make-bigpicture.js';
 
 const pictureContainer = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
+
 const renderSimilarPictures = (similarPictures)=>{
   const similarPicturesFragment = document.createDocumentFragment();
   similarPictures.forEach (({url, comments, likes,description})=> {

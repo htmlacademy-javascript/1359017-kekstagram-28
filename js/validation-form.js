@@ -1,16 +1,16 @@
 import { isEscapeKey } from './util.js';
 import { sendData } from './api.js';
 import {createSuccess, createError} from './success.js';
-import { closeUploadModal} from './upload-photo.js';
+import { onCloseUploadModal} from './upload-photo.js';
 import { changeSizePhoto} from './scale.js';
-const bodyElement = document.querySelector('body');
+
 const HASHTAG_REGEX = /#[a-zа-яё0-9]{1,19}$/i;
 const MAX_HASHTAG_COUNT = 5;
 const COMMENT_MAX_LENGTH = 140;
 const uploadForm = document.querySelector('.img-upload__form');
 const hashtagFieldElement = document.querySelector('.text__hashtags');
 const commentFieldElement = document.querySelector('.text__description');
-const submitButtonElement = uploadForm.querySelector('#upload-submit');
+const submitButtonElement = document.querySelector('#upload-submit');
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',
   errorClass: 'form__item--invalid',
@@ -18,44 +18,47 @@ const pristine = new Pristine(uploadForm, {
   errorTextTag: 'div',
   errorTextClass: 'text__hashtags-error',
 });
-const validateHashtag = (text) => HASHTAG_REGEX.test(text) || text === '';
-const validateHashtagCount = (text) =>
-  text
-    .split('')
-    .filter((tag) => tag === '#')
-    .length <= MAX_HASHTAG_COUNT;
 
-const validateSimilarHashtags = (text) => {
-  const textArray = text
-    .replaceAll(' ','')
-    .toLowerCase()
-    .split('#');
-  textArray.shift();
-  const unique = Array.from(new Set(textArray));
-  return textArray.length === unique.length;
+// проверка написания
+const validateHashtagcheck = (value) => {
+  const hashTages = value.split(' ');
+  return !value.length ? true : hashTages.every((hashtag) =>HASHTAG_REGEX.test(hashtag));
 };
-
-// Валидатор правильности хештега
 pristine.addValidator(
   hashtagFieldElement,
-  validateHashtag,
+  validateHashtagcheck,
   'Ошибка! не верно введен хештег'
 );
 
-// Валидатор на количество хештегов
+
+// проверка колличества
+const validateHashtagCount = (value) => {
+  const hashTages = value.split(' ');
+  return hashTages.length <= MAX_HASHTAG_COUNT;
+};
 pristine.addValidator(
   hashtagFieldElement,
   validateHashtagCount,
-  'Ошибка! максимальное количество хештегов: 5'
+  `Ошибка! Максимальное количество хештегов  ${MAX_HASHTAG_COUNT} хэш-тегов.`
 );
-
-// Валидатор на одинаковые хештеги
+// проверка на уникальность
+const validateSimilarHashtags = (value) => {
+  const hashTages = value.toLowerCase().split(' ');
+  return new Set(hashTages).size === hashTages.length;
+};
 pristine.addValidator(
   hashtagFieldElement,
   validateSimilarHashtags,
   'Ошибка! Одинаковые хештеги!'
 );
+// проверка длинны комментариев.
+const validateComment = (value) => value.length <= COMMENT_MAX_LENGTH;
 
+pristine.addValidator(
+  commentFieldElement,
+  validateComment,
+  `Максимальная длина комментария ${COMMENT_MAX_LENGTH} символов.Удалите лишнee.`
+);
 const blockSubmitButton = () => {
   submitButtonElement.disabled = true;
   submitButtonElement.textContent = 'Публикую...';
@@ -79,14 +82,13 @@ const setUserFormSubmit = (onSuccess) => {
           blockSubmitButton();
           createSuccess();
           changeSizePhoto();
-          //resetPhotoStyles();
-          bodyElement.classList.add('modal-open');
+          document.body.classList.add('modal-open');
           evt.target.reset();
         },
         () => {
           createError();
           unblockSubmitButton();
-          bodyElement.classList.add('modal-open');
+          document.body.classList.add('modal-open');
         },
         new FormData(evt.target),
         unblockSubmitButton
@@ -107,17 +109,6 @@ commentFieldElement.addEventListener('keydown', (evt) => {
     document.activeElement.blur();
   }
 });
-const commentTextInput = () => {
-  const valueLength = commentFieldElement.value.length;
-  if (valueLength > COMMENT_MAX_LENGTH) {
-    commentFieldElement.setCustomValidity('Максимальная длина комментария 140 символов. Удалите лишнee.');
-    commentFieldElement.style.borderColor = '#FF5F49';
-  } else {
-    commentFieldElement.setCustomValidity('');
-    commentFieldElement.style.borderColor = '';
-  }
-  commentFieldElement.reportValidity();
-};
-commentFieldElement.addEventListener('input', commentTextInput);
-setUserFormSubmit(closeUploadModal);
-
+commentFieldElement.addEventListener('input', validateComment);
+setUserFormSubmit(onCloseUploadModal);
+export {pristine};

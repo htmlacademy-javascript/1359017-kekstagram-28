@@ -9,6 +9,7 @@ const Methods = {
   GET: 'GET',
   POST: 'POST',
 };
+
 const filterElement = document.querySelector('.img-filters');
 const getData = (onSuccess) => {
   fetch(`${BASE_URL}${Routes.GET_DATA}`)
@@ -48,4 +49,5 @@ const sendData = (onSuccess, onFail, body, finalSubmit) => {
       finalSubmit();
     });
 };
+
 export {getData, sendData};

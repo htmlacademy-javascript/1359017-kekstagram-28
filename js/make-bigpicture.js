@@ -3,7 +3,7 @@ const COMMENTS_SHOW_DEFAULT = 5;
 let shownComments;
 const bodyElement = document.querySelector('body');
 const bigPictureElement = document.querySelector('.big-picture');
-const bigPictureCancel = document.querySelector('.big-picture__cancel');
+const cancelButtonElement = document.querySelector('.big-picture__cancel');
 const socialComments = document.querySelector('.social__comments');
 const commentElement = document.querySelector('.social__comment');
 const likesCountElement = document.querySelector('.likes-count');
@@ -32,7 +32,7 @@ const showComments = (comments) => {
   }
 };
 // Добавление еще комментариев
-const createMoreComments = () => {
+const onCommentsLoaderClick = () => {
   const additionalCommentsToShow = shownComments
     .slice(socialComments.children.length, socialComments.children.length + 5);
   createComment(additionalCommentsToShow);
@@ -44,40 +44,39 @@ const createMoreComments = () => {
 };
 
 const showBigPicture = (url, likes, comments, description) => {
-  onShowModal();
+  onOpenUserModal();
   bigPictureElement.querySelector('img').src = url;
   likesCountElement.textContent = likes;
   commentsCountElement.textContent = comments.length;
   socialCaptionElement.textContent = description;
   socialComments.innerHTML = '';
   shownComments = comments;
-  commentsLoaderElement.addEventListener('click', createMoreComments);
+  commentsLoaderElement.addEventListener('click', onCommentsLoaderClick);
   showComments(comments);
 };
-
-const onDocumentKeydown = (evt) => {
+const onBigPictureKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    onHideModal();
+    onCloseUserModal();
   }
 };
 
-function onShowModal() {
+function onOpenUserModal() {
   bigPictureElement.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
-  document.addEventListener('keydown', onDocumentKeydown);
+  document.addEventListener('keydown', onBigPictureKeydown);
 }
 
-function onHideModal() {
+function onCloseUserModal() {
   bigPictureElement.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
-  document.removeEventListener('keydown', onDocumentKeydown);
+  document.removeEventListener('keydown', onBigPictureKeydown);
   commentsLoaderElement.classList.remove('hidden');
-  commentsLoaderElement.removeEventListener('click', createMoreComments);
-  bigPictureCancel.removeEventListener('click', () => {
-    onHideModal();
-  });
+  commentsLoaderElement.removeEventListener('click', onCommentsLoaderClick);
 }
+cancelButtonElement.addEventListener('click',()=>
+  onCloseUserModal()
+);
 
-bigPictureCancel.addEventListener('click',onHideModal);
 export { showBigPicture };
+
