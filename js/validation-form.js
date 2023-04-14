@@ -19,6 +19,21 @@ const pristine = new Pristine(uploadForm, {
   errorTextTag: 'div',
   errorTextClass: 'text__hashtags-error',
 });
+
+// проверка написания
+const validateHashtagCheck = (value) => {
+  const hashTages = value
+    .trim()
+    .split(' ')
+    .filter((tag) => tag.trim().length);
+  return hashTages.every((tag) => HASHTAG_REGEX.test(tag));
+};
+
+pristine.addValidator(
+  hashtagFieldElement,
+  validateHashtagCheck,
+  'Ошибка! не верно введен хештег'
+);
 //Проверка хэштегов на количество
 const validateHashtagCount = (value) => {
   const hashTages = value
@@ -49,20 +64,6 @@ pristine.addValidator(
   'Хештеги не должны повторяться'
 );
 
-// проверка написания
-const validateHashtagCheck = (value) => {
-  const hashTages = value
-    .trim()
-    .split(' ')
-    .filter((tag) => tag.trim().length);
-  return hashTages.every((tag) => HASHTAG_REGEX.test(tag));
-};
-
-pristine.addValidator(
-  hashtagFieldElement,
-  validateHashtagCheck,
-  'Ошибка! не верно введен хештег'
-);
 // проверка пробела
 const validateHashtagSpaces = (value) => {
   const hashTages = value
