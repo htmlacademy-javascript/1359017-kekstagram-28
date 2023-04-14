@@ -58,8 +58,8 @@ function onCloseUploadModal() {
   pristine.reset();
   window.removeEventListener('keydown', onDocumentKeydown);
   cancelButtonElement.removeEventListener('click', onCloseUploadModal);
-
 }
+
 function openUploadModal() {
   overlayElement.classList.remove('hidden');
   bodyElement.classList.add('modal-open');

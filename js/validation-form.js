@@ -4,13 +4,14 @@ import {createSuccess, createError} from './success.js';
 import { onCloseUploadModal} from './upload-photo.js';
 import { changeSizePhoto} from './scale.js';
 
-const HASHTAG_REGEX = /#[a-zа-яё0-9]{1,19}$/i;
+const HASHTAG_REGEX = /^#[a-zа-яë0-9]{1,19}$/i;
 const MAX_HASHTAG_COUNT = 5;
 const COMMENT_MAX_LENGTH = 140;
 const uploadForm = document.querySelector('.img-upload__form');
 const hashtagFieldElement = document.querySelector('.text__hashtags');
 const commentFieldElement = document.querySelector('.text__description');
 const submitButtonElement = document.querySelector('#upload-submit');
+
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',
   errorClass: 'form__item--invalid',
@@ -20,37 +21,64 @@ const pristine = new Pristine(uploadForm, {
 });
 
 // проверка написания
-const validateHashtagcheck = (value) => {
-  const hashTages = value.split(' ');
-  return !value.length ? true : hashTages.every((hashtag) =>HASHTAG_REGEX.test(hashtag));
+const validateHashtagCheck = (value) => {
+  const hashTages = value
+    .trim()
+    .split(' ')
+    .filter((tag) => tag.trim().length);
+  return hashTages.every((tag) => HASHTAG_REGEX.test(tag));
 };
+
 pristine.addValidator(
   hashtagFieldElement,
-  validateHashtagcheck,
+  validateHashtagCheck,
   'Ошибка! не верно введен хештег'
 );
-
-
-// проверка колличества
+//Проверка хэштегов на количество
 const validateHashtagCount = (value) => {
-  const hashTages = value.split(' ');
+  const hashTages = value
+    .trim()
+    .split(' ')
+    .filter((tag) => tag.trim().length);
   return hashTages.length <= MAX_HASHTAG_COUNT;
 };
+
 pristine.addValidator(
   hashtagFieldElement,
   validateHashtagCount,
-  `Ошибка! Максимальное количество хештегов  ${MAX_HASHTAG_COUNT} хэш-тегов.`
+  'Максимальное количество хэштэгов 5'
 );
 // проверка на уникальность
 const validateSimilarHashtags = (value) => {
-  const hashTages = value.toLowerCase().split(' ');
-  return new Set(hashTages).size === hashTages.length;
+  const hashTages = value
+    .trim()
+    .split(' ')
+    .filter((tag) => tag.trim().length);
+  const lowerCaseTags = hashTages.map((tag) => tag.toLowerCase());
+  return lowerCaseTags.length === new Set(lowerCaseTags).size;
 };
+
 pristine.addValidator(
   hashtagFieldElement,
   validateSimilarHashtags,
-  'Ошибка! Одинаковые хештеги!'
+  'Хештеги не должны повторяться'
 );
+
+// проверка пробела
+const validateHashtagSpaces = (value) => {
+  const hashTages = value
+    .trim()
+    .split (' ');
+  return !hashTages.every((hashtag) =>
+    hashtag.includes('#',1)) ;
+};
+
+pristine. addValidator(
+  hashtagFieldElement,
+  validateHashtagSpaces,
+  'Хэштэги должны разделяться пробелами'
+);
+
 // проверка длинны комментариев.
 const validateComment = (value) => value.length <= COMMENT_MAX_LENGTH;
 
@@ -82,7 +110,7 @@ const setUserFormSubmit = (onSuccess) => {
           blockSubmitButton();
           createSuccess();
           changeSizePhoto();
-          document.body.classList.add('modal-open');
+          document.body.classList.remove('modal-open');
           evt.target.reset();
         },
         () => {
