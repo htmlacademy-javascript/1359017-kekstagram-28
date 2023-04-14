@@ -110,7 +110,7 @@ const setUserFormSubmit = (onSuccess) => {
           blockSubmitButton();
           createSuccess();
           changeSizePhoto();
-          document.body.classList.add('modal-open');
+          document.body.classList.remove('modal-open');
           evt.target.reset();
         },
         () => {
